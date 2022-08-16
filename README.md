@@ -2,7 +2,6 @@
 
 ## Technologies
 
-
 - .Net Core 5
 - GraphQL
 - Hot Chocolate
