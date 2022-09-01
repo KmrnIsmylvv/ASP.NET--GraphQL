@@ -14,6 +14,13 @@ namespace CommanderGQL.GraphQL.Platforms
 
             descriptor
                 .Field(p => p.LicenseKey).Ignore();
+
+            
+            descriptor
+                .Field(p=> p.Commands)
+                .ResolveWith<Resolvers>(r => r.GetCommands(default!, default!))
+                .UseDbContext<AppDbContext>()
+                .Description("This is the list of available commands for this platform");
         }
 
         private class Resolvers
