@@ -30,7 +30,8 @@ namespace CommanderGQL
             .AddQueryType<Query>()
             .AddType<PlatformType>()
             .AddType<CommandType>()
-            .AddProjections();
+            .AddSorting()
+            .AddFiltering();
         }
 
 
