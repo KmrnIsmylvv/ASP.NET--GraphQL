@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using CommanderGQL.Data;
+using CommanderGQL.GraphQL.Commands;
 using CommanderGQL.GraphQL.Platforms;
 using CommanderGQL.Models;
 using HotChocolate;
@@ -22,5 +23,21 @@ namespace CommanderGQL.GraphQL
 
             return new AddPlatformPayload(platform);
         }
+
+        [UseDbContext(typeof(AppDbContext))]
+        public async Task<AddCommandPayload> AddCommandAsync(AddCommandInput input,
+            [ScopedService] AppDbContext context)
+            {
+                Command command = new Command{
+                    HowTo = input.HowTo,
+                    CommandLine = input.CommandLine,
+                    PlatformId = input.PlatformId
+                };
+
+                await context.Commands.AddAsync(command);
+                await context.SaveChangesAsync();
+
+                return new AddCommandPayload(command);
+            }
     }
 }
